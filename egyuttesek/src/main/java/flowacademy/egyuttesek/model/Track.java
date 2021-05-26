@@ -3,15 +3,22 @@ package flowacademy.egyuttesek.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
+@Entity
 @Data
 @AllArgsConstructor
 public class Track {
-    private String id;
+    @Id
+    private UUID id;
     private String name;
     private int trackLength;
     private int licensePrice;
+    @ManyToOne
+    @JoinColumn
     private Album album;
-    private List<MusicService> musicServiceList;
+    @ManyToOne
+    private MusicService musicService;
 }
