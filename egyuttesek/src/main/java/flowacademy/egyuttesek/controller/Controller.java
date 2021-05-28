@@ -1,6 +1,9 @@
 package flowacademy.egyuttesek.controller;
 
 import flowacademy.egyuttesek.model.Album;
+import flowacademy.egyuttesek.model.Band;
+import flowacademy.egyuttesek.model.MusicService;
+import flowacademy.egyuttesek.model.Track;
 import flowacademy.egyuttesek.repository.AlbumRepository;
 import flowacademy.egyuttesek.repository.BandRepository;
 import flowacademy.egyuttesek.repository.MusicServiceRepository;
@@ -10,16 +13,14 @@ import flowacademy.egyuttesek.service.BandService;
 import flowacademy.egyuttesek.service.MusicServiceService;
 import flowacademy.egyuttesek.service.TrackService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/")
+
 public class Controller {
     private final AlbumService albumService;
     private final BandService bandService;
@@ -31,4 +32,29 @@ public class Controller {
         return albumService.findByBand(band);
     }
 
+    @GetMapping("query/album/")
+    public List<Album> findAllAlbum(){
+        return albumService.findAllAlbum();
+    }
+    @GetMapping("query/band/")
+    public List<Band> findAllBand(){
+        return bandService.findAllBand();
+    }
+
+    @PostMapping("letrehoz/album")
+    public Album createAlbum(@RequestBody Album album){
+        return albumService.addAlbum(album);
+    }
+    @PostMapping("letrehoz/musicservice")
+    public MusicService createMusicSerivce(@RequestBody MusicService musicService){
+        return musicServiceService.createMusicService(musicService);
+    }
+    @PostMapping("letrehoz/band")
+    public Band createBand(@RequestBody Band band){
+        return bandService.createBand(band);
+    }
+    @PostMapping("letrehoz/track")
+    public Track createTrack(@RequestBody Track track){
+        return trackService.createTrack(track);
+    }
 }

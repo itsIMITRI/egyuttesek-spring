@@ -20,5 +20,16 @@ public class AlbumService {
         return albumRepository.findByBandContaining(band);
     }
 
+    public List<Album> findAllAlbum() {
+        return albumRepository.findAll();
+    }
+
+    public Album addAlbum(Album album) {
+        return albumRepository.save(
+                Album.builder()
+                        .id(UUID.randomUUID())
+                        .name(album.getName())
+                        .build());
+    }
 
 }
