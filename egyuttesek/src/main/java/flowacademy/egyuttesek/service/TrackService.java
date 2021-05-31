@@ -3,6 +3,7 @@ package flowacademy.egyuttesek.service;
 import flowacademy.egyuttesek.model.Album;
 import flowacademy.egyuttesek.model.MusicService;
 import flowacademy.egyuttesek.model.Track;
+import flowacademy.egyuttesek.model.dto.TrackResponse;
 import flowacademy.egyuttesek.repository.AlbumRepository;
 import flowacademy.egyuttesek.repository.MusicServiceRepository;
 import flowacademy.egyuttesek.repository.TrackRepository;
@@ -22,15 +23,15 @@ public class TrackService {
     private final MusicServiceRepository musicServiceRepository;
     private final AlbumRepository albumRepository;
 
-    public String createTrack(Track track) {
+    public void createTrack(Track track) {
         String musicServiceName = track.getMusicService().getName();
         MusicService musicService = musicServiceRepository.findByName(musicServiceName);
         String albumId = track.getAlbum().getId();
         Album album = albumRepository.getById(albumId);
-        String id;
+
         trackRepository.save(
                 Track.builder()
-                        .id(id = UUID.randomUUID().toString())
+                        .id(UUID.randomUUID().toString())
                         .name(track.getName())
                         .licencePrice(track.getLicencePrice())
                         .trackLength(track.getTrackLength())
@@ -38,26 +39,24 @@ public class TrackService {
                         .album(album)
                         .build()
         );
-        return track.getName() + " - " + id;
+
     }
 
-    public List<String> getTracksByAlbum(String name) {
+    public List<TrackResponse> getTracksByAlbum(String name) {
         List<Track> tracks = trackRepository.findByAlbumNameContaining(name);
 
-        return tracks.stream().map(track -> track.getId() + ";" + track.getName() + ";" + track.getTrackLength()+";"+track.getAlbum().getBand().getMusicGenre()).collect(Collectors.toList());
+        return tracks.stream().map(TrackResponse::giveIdTrackNameTrackLenghtBandGenre).collect(Collectors.toList());
     }
 
-    public List<String> getATrackFromAlbum(String id) {
+    public List<TrackResponse> getATrackFromAlbum(String id) {
         Optional<Track> findTrack = trackRepository.findById(id);
 
-        return findTrack.stream().map(track -> track.getId() + ";" + track.getName()
-                + ";" + track.getTrackLength() + ";" + track.getLicencePrice() + ";" +
-                track.getMusicService().getName()).collect(Collectors.toList());
+        return findTrack.stream().map(TrackResponse::getIdTrackNameTrackLengthLicencePriceMusicService).collect(Collectors.toList());
     }
 
-    public List<String> getTracksByLengthAndGenre(int length, String genre) {
+    public List<TrackResponse> getTracksByLengthAndGenre(int length, String genre) {
         Optional<Track> findTrack = trackRepository.findByTrackLengthAndAlbumBandMusicGenreContaining(length, genre);
-        return findTrack.stream().map(track -> track.getId() + ";" + track.getName()).collect(Collectors.toList());
+        return findTrack.stream().map(TrackResponse::getIdTrackName).collect(Collectors.toList());
     }
 
     public void deleteATrackFromMusicService(String id) {
