@@ -45,10 +45,10 @@ public class TrackService {
     public List<TrackResponse> getTracksByAlbum(String name) {
         List<Track> tracks = trackRepository.findByAlbumNameContaining(name);
 
-        return tracks.stream().map(TrackResponse::giveIdTrackNameTrackLenghtBandGenre).collect(Collectors.toList());
+        return tracks.stream().map(TrackResponse::getIdTrackName).collect(Collectors.toList());
     }
 
-    public List<TrackResponse> getATrackFromAlbum(String id) {
+    public List<TrackResponse> getATrackById(String id) {
         Optional<Track> findTrack = trackRepository.findById(id);
 
         return findTrack.stream().map(TrackResponse::getIdTrackNameTrackLengthLicencePriceMusicService).collect(Collectors.toList());

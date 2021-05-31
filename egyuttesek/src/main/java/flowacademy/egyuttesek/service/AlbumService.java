@@ -3,7 +3,6 @@ package flowacademy.egyuttesek.service;
 
 import flowacademy.egyuttesek.model.Album;
 import flowacademy.egyuttesek.model.Band;
-import flowacademy.egyuttesek.model.Track;
 import flowacademy.egyuttesek.model.dto.AlbumResponse;
 import flowacademy.egyuttesek.repository.AlbumRepository;
 import flowacademy.egyuttesek.repository.BandRepository;
@@ -23,8 +22,8 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
     private final BandRepository bandRepository;
 
-    public List<AlbumResponse> findByName(String name) {
-        List<Album> albums = albumRepository.findByBandNameContaining(name);
+    public List<AlbumResponse> findBandById(String id) {
+        List<Album> albums = albumRepository.findByBandId(id);
 
         return albums.stream().map(AlbumResponse::giveIdNameDateTrackLenghtSum).collect(Collectors.toList());
 
