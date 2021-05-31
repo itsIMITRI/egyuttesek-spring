@@ -1,3 +1,4 @@
+
 package flowacademy.egyuttesek.model;
 
 import lombok.AllArgsConstructor;
@@ -6,11 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -19,8 +19,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MusicService {
     @Id
-    private UUID id;
+    private String id;
     private String name;
-    @OneToMany(mappedBy = "musicService")
+    @OneToMany(mappedBy = "musicService", fetch = FetchType.LAZY)
     private List<Track> trackList;
 }

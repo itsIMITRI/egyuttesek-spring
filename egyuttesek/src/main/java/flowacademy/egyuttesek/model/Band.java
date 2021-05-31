@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -18,10 +18,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Band {
     @Id
-    private UUID id;
+    private String id;
     private String name;
     private String musicGenre;
-    @OneToMany(mappedBy = "band")
-    private List<Album> albumList;
+
+    @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
+    protected List<Album> albumList;
+
 
 }

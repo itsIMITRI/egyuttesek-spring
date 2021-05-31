@@ -1,32 +1,34 @@
 package flowacademy.egyuttesek.service;
 
-import flowacademy.egyuttesek.model.Album;
 import flowacademy.egyuttesek.model.Band;
-import flowacademy.egyuttesek.model.MusicService;
 import flowacademy.egyuttesek.repository.BandRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class BandService {
+
     private final BandRepository bandRepository;
 
-    public List<Band> findAllBand() {
-        return bandRepository.findAll();
-    }
-
-    public Band createBand(Band band){
-        return  bandRepository.save(
+    public String createBand(Band band){
+        String id;
+        bandRepository.save(
                 Band.builder()
-                        .id(UUID.randomUUID())
+                        .id(id =UUID.randomUUID().toString())
                         .name(band.getName())
                         .musicGenre(band.getMusicGenre())
                         .build()
         );
-}
+        return band.getName() + " - " + id;
+    }
+
+    public List<String> findAll() {
+        List<Band> bands = bandRepository.findAll();
+        return bands.stream().map(band -> band.getId()+";"+band.getName()).collect(Collectors.toList());
+    }
 }
