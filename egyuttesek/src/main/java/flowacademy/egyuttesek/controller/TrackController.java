@@ -2,6 +2,7 @@ package flowacademy.egyuttesek.controller;
 
 import flowacademy.egyuttesek.model.Track;
 import flowacademy.egyuttesek.model.dto.TrackResponse;
+import flowacademy.egyuttesek.model.dto.TrackResponse2;
 import flowacademy.egyuttesek.service.TrackService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class TrackController {
     }
 
     @GetMapping("id/{id}")
-    public List<TrackResponse> getATrackById(@PathVariable String id){
+    public List<TrackResponse2> getATrackById(@PathVariable String id){
         return trackService.getATrackById(id);
     }
 

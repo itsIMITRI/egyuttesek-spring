@@ -3,6 +3,7 @@ package flowacademy.egyuttesek.controller;
 import flowacademy.egyuttesek.model.MusicService;
 import flowacademy.egyuttesek.model.dto.MusicServiceResponse;
 import flowacademy.egyuttesek.model.dto.TrackResponse;
+import flowacademy.egyuttesek.model.dto.TrackResponse3;
 import flowacademy.egyuttesek.service.MusicServiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class MusicServiceController {
     }
 
     @GetMapping("/{id}")
-    public List<TrackResponse> getTracksFromMusicService(@PathVariable String id) {
+    public List<TrackResponse3> getTracksFromMusicService(@PathVariable String id) {
         return musicServiceService.getTracksFromMusicService(id);
     }
 

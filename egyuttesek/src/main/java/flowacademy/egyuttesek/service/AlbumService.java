@@ -4,13 +4,16 @@ package flowacademy.egyuttesek.service;
 import flowacademy.egyuttesek.model.Album;
 import flowacademy.egyuttesek.model.Band;
 import flowacademy.egyuttesek.model.dto.AlbumResponse;
+import flowacademy.egyuttesek.model.dto.AlbumResponse2;
 import flowacademy.egyuttesek.repository.AlbumRepository;
 import flowacademy.egyuttesek.repository.BandRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,17 +25,16 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
     private final BandRepository bandRepository;
 
-    public List<AlbumResponse> findBandById(String id) {
-        List<Album> albums = albumRepository.findByBandId(id);
-
-        return albums.stream().map(AlbumResponse::giveIdNameDateTrackLenghtSum).collect(Collectors.toList());
+    public List<AlbumResponse2> findBandById(String id) {
+        Optional<Album> albums = albumRepository.findByBandId(id);
+        return albums.stream().map(AlbumResponse2::giveIdNameDateTrackLengthSum).collect(Collectors.toList());
 
     }
 
 
     public List<AlbumResponse> findAll() {
         List<Album> albums = albumRepository.findAll();
-        return albums.stream().map(AlbumResponse::giveIdNameDateTrackLenghtSum).collect(Collectors.toList());
+        return albums.stream().map(AlbumResponse::giveIdName).collect(Collectors.toList());
     }
 
     public void createAlbum(Album album) {

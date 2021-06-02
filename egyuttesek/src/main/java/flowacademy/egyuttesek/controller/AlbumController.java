@@ -1,7 +1,9 @@
 package flowacademy.egyuttesek.controller;
 
 import flowacademy.egyuttesek.model.Album;
+import flowacademy.egyuttesek.model.Band;
 import flowacademy.egyuttesek.model.dto.AlbumResponse;
+import flowacademy.egyuttesek.model.dto.AlbumResponse2;
 import flowacademy.egyuttesek.service.AlbumService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ public class AlbumController {
     }
 
     @GetMapping("/{band}")
-    public List<AlbumResponse> getAlbumsByBand(@PathVariable String band) {
+    public List<AlbumResponse2> getAlbumsByBand(@PathVariable String band) {
         return albumService.findBandById(band);
     }
 

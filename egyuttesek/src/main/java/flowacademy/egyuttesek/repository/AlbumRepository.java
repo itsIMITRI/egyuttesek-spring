@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface AlbumRepository extends JpaRepository<Album, String> {
 
-    List<Album> findByBandNameContaining(String name);
 
-    List<Album> findByBandId(String id);
+    Optional<Album> findByBandId(String id);
 }
